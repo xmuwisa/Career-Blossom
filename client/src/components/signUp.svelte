@@ -10,7 +10,6 @@
             <input type="password" placeholder="Password" class="mt-6 w-[full] p-4 rounded-[10px]" />
             <input type="password" placeholder="Confirm Password" class="mt-6 w-full p-4 rounded-[10px]" />
         </div>
-        <!-- dont forget forgot password component here -->
         <div class="w-full flex item-center justify-end">
             <button class="mt-6 text-[#353535] font-semibold w-[175px] py-3 bg-[#F4B8DA] rounded-[10px]">Next</button>
         </div>
