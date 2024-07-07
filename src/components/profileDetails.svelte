@@ -1,8 +1,16 @@
-<script>
+<!-- <script>
     import TCPP from './tcpp.svelte';
     import { X, Plus, Info, Asterisk } from "phosphor-svelte";
     import { onMount, afterUpdate } from 'svelte';
     import { writable } from 'svelte/store';
+    import { registrationData } from '$lib/store';
+    
+
+    let storedData = {};
+    registrationData.subscribe(value => {
+        storedData = value;
+        console.log('Stored Registration Data:', storedData);
+    });
 
     let previewSrc = "";
     let fileName = "No file chosen";
@@ -79,7 +87,11 @@
     }
 
     function handleSubmit() {
-        validateWorkHistory();
+    //     if(){
+
+    //     } else {
+    //         registrationData.set({});
+    //     }
     }
 
     function addInputsEduc(event) {
@@ -242,30 +254,38 @@
             </div>
             <button type="button" on:click={addInputsEduc} class="bg-[#db78a8] text-white px-3 py-2 rounded-[5px] hover:bg-[#b95d8a]"><Plus size={14} weight="bold" /></button>
         </div>
-        <div id="inputContainerEduc" class="w-[550px] flex flex-col items-center justify-center overflow-auto">
+        <div id="inputContainerEduc" class="w-[575px] flex flex-col items-center justify-center overflow-auto">
             {#each $inputsEduc as inputEduc (inputEduc.id)}
                 <div class="p-2 mt-6 rounded-[12px] bg-[#F8E0ED] w-[525px] relative">
-                    {#if inputEduc.id === 1}
-                        <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
-                    {/if}
                     {#if inputEduc.id !== 1}
-                        <button type="button" on:click={() => removeInputsEduc(inputEduc.id)} class="bg-[#db78a8] text-white p-2 rounded-[50px] font-semibold opacity-40 hover:bg-[#b95d8a] hover:opacity-100 absolute -right-2 -top-2"><X size={10} weight="bold" /></button>
+                        <button type="button" on:click={() => removeInputsEduc(inputEduc.id)} class="bg-[#db78a8] text-white p-2 rounded-[50px] font-semibold opacity-40 hover:bg-[#b95d8a] hover:opacity-100 absolute -right-4 -top-4"><X size={10} weight="bold" /></button>
                     {/if}
-                    <input type="text" placeholder="School Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                    <div class="relative w-full">
+                        <input type="text" placeholder="School Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                        <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
+                    </div>
+                    
                     <div class="w-full flex items-center justify-between space-x-2 mt-3">
-                        <select class="w-[45%] p-4 rounded-[10px] text-gray-400" required>
-                            <option disabled selected value="">Degree</option>
-                            <option>High School</option>
-                            <option>Associate</option>
-                            <option>Bachelor</option>
-                            <option>Master</option>
-                            <option>PhD</option>
-                            <option>Doctorate</option>
-                            <option>Certificate</option>
-                            <option>Other</option>
-                          </select>
-                        <input type="text" placeholder="Year Started" class="w-[27%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
-                        <input type="text" placeholder="Year Ended" class="w-[27%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                        <div class="relative w-[45%]">
+                            <select class="w-full p-4 rounded-[10px] text-gray-400" required>
+                                <option disabled selected value="">Degree</option>
+                                <option>High School</option>
+                                <option>Associate</option>
+                                <option>Bachelor</option>
+                                <option>Master</option>
+                                <option>PhD</option>
+                                <option>Doctorate</option>
+                                <option>Certificate</option>
+                                <option>Other</option>
+                              </select>
+                              <span class="absolute -top-1 -right-1 z-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
+                        </div>
+                        <div class="relative w-[27%]">
+                            <input type="text" placeholder="Year Started" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                            <span class="absolute -top-1 -right-1 z-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
+                        </div>
+                        
+                        <input type="text" placeholder="Year Ended" class="w-[27%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]"/>
                     </div>
                 </div>
             {/each}
@@ -286,15 +306,24 @@
             <button type="button" on:click={addInputsWork} class="bg-[#db78a8] text-white px-3 py-2 rounded-[5px] hover:bg-[#b95d8a]"><Plus size={14} weight="bold" /></button>
         </div>
         
-        <div id="inputContainerWork" class="w-[550px] flex flex-col items-center justify-center">
+        <div id="inputContainerWork" class="w-[575px] flex flex-col items-center justify-center">
             {#each $inputsWork as inputWork (inputWork.id)}
                 <div class="w-[525px] p-2 mt-6 rounded-[12px] bg-[#F8E0ED] relative">
-                    <button type="button" on:click={() => removeInputsWork(inputWork.id)} class="bg-[#db78a8] text-white p-2 rounded-[50px] font-semibold opacity-40 hover:bg-[#b95d8a] hover:opacity-100 absolute -right-2 -top-2"><X size={10} weight="bold" /></button>
-                    <input type="text" placeholder="Job Role" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                    <button type="button" on:click={() => removeInputsWork(inputWork.id)} class="bg-[#db78a8] text-white p-2 rounded-[50px] font-semibold opacity-40 hover:bg-[#b95d8a] hover:opacity-100 absolute -right-4 -top-4"><X size={10} weight="bold" /></button>
+                    <div class="relative w-full">
+                        <input type="text" placeholder="Job Role" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                        <span class="absolute -top-1 -right-1 z-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
+                    </div>
                     <div class="w-full flex items-center justify-between space-x-2 mt-3">
-                        <input type="text" placeholder="Company Name" class="w-[45%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
-                        <input type="text" placeholder="Year Started" class="w-[27%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
-                        <input type="text" placeholder="Year Ended" class="w-[27%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                        <div class="relative w-[45%]">
+                            <input type="text" placeholder="Company Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                            <span class="absolute -top-1 -right-1 z-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
+                        </div>
+                        <div class="relative w-[27%]">
+                            <input type="text" placeholder="Year Started" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
+                            <span class="absolute -top-1 -right-1 z-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
+                        </div>
+                        <input type="text" placeholder="Year Ended" class="w-[27%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]"/>
                     </div>
                 </div>
             {/each}
@@ -320,15 +349,15 @@
                     <div class="dropdown dropdown-right dropdown-end space-x-1.5">
                         <div tabindex="0" role="button"><Info size={18} weight="bold" color="#CA5A90"/></div>
                         <div tabindex="0" class="dropdown-content">
-                            <div class="bg-white w-[450px] rounded-[10px] shadow text-[14px] font-normal p-2">
-                                The photo must be JPG, JPEG, or PNG, clearly show your face, and be a professional square photo.
+                            <div class="bg-white w-[410px] rounded-[10px] shadow text-[14px] font-normal p-2">
+                                The photo must be JPG format, clearly show your face, and be a professional square photo.
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col items-center justify-center h-full">
                     <div class="flex flex-row items-center w-full bg-white rounded-[10px] hover:bg-[#FFF7F7] cursor-pointer">
-                        <input type="file" id="custom-input" accept="image/jpeg, image/jpg, image/png" hidden on:change={handleFileChange} required/>
+                        <input type="file" id="custom-input" name="file" accept="image/jpeg, image/jpg, image/png" hidden on:change={handleFileChange} required/>
                         <label for="custom-input" class="block text-gray-400 p-4 rounded-md border-0 bg-[#eecddf] min-w-[150px] cursor-pointer hover:bg-[#ddb2ca] hover:text-[#353535]">
                             Choose photo
                         </label>
@@ -347,4 +376,4 @@
         
         <button type="submit" class="mt-3 text-[#353535] font-semibold w-[225px] py-3 bg-[#F4B8DA] rounded-[50px]">Sign Up</button>
     </form>
-</div>
+</div> -->
