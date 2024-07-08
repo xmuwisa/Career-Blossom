@@ -14,32 +14,51 @@
     $: formValid = username && email && password && confirmPassword && passwordsMatch;
   
     async function handleSubmit(event) {
-        event.preventDefault();
-    
-        const response = await fetch('/api/user_create', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                username,
-                email,
-                password
-            })
-        });
-    
-        if (response.ok) {
-            const result = await response.json();
-            console.log(result);
-            const userId = result.user_id;
-            console.log(userId)
+      event.preventDefault();
 
-            goto('/register/candidate');
+      const response = await fetch('/api/user_create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          username,
+          email,
+          password
+        })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+
+        // Make another request to login the user
+        const loginResponse = await fetch('/api/user_login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            username,
+            password
+          })
+        });
+
+        if (loginResponse.ok) {
+          const loginResult = await loginResponse.json();
+          console.log(loginResult);
+
+          goto('/register/candidate');
         } else {
-            const error = await response.text();
-            console.error(error);
-            errorMessage = error;
+          const loginError = await loginResponse.text();
+          console.error(loginError);
+          errorMessage = loginError;
         }
+      } else {
+        const error = await response.text();
+        console.error(error);
+        errorMessage = error;
+      }
     }
 </script>
   

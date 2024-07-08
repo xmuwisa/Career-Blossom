@@ -1,27 +1,13 @@
 <script>
     import { Info, Asterisk, CaretDoubleRight } from "phosphor-svelte";
     import { goto } from '$app/navigation';
-
-    let firstName = '';
-    let middleName = '';
-    let lastName = '';
-    let suffix = '';
-    let address = '';
-    let sex = '';
-    let civilStatus = '';
-    let religion = '';
-    let birthPlace = '';
+    
     let birthDate = '';
     let age = '';
-    let height = '';
-    let weight = '';
-    let contactNumber = '';
     let sssNumber = '';
     let tinNumber = '';
     let pagIbigNumber = '';
     let philhealthNumber = '';
-    let emergencyPerson = '';
-    let emergencyContact = '';
     let previewSrc = "";
     let fileName = "No file chosen";
 
@@ -41,9 +27,6 @@
                 age = '';
             }
         }
-    }
-
-    async function handleSubmit(event) {
     }
 
     function handleInputChange(event) {
@@ -90,6 +73,7 @@
             previewSrc = "";
         }
     }
+
 </script>
 
 <div class="w-full h-auto rounded-[35px] p-20 flex flex-col items-center justify-center">
@@ -102,33 +86,33 @@
     </div>
 
     <div class="w-full mt-16 flex items-center justify-center">
-        <form method="post" enctype="multipart/form-data" class="w-[525px] flex flex-col items-center justify-center" on:submit={handleSubmit}>
+        <form method="post" enctype="multipart/form-data" class="w-[525px] flex flex-col items-center justify-center">
             <div class="w-full flex items-center justify-start mt-8 font-semibold text-[#DA478D]">
                 PERSONAL DETAILS
             </div>
             <div class="w-full flex items-center justify-between space-x-4 mt-6">
                 <div class="relative w-full">
-                    <input type="text" placeholder="First Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={firstName} required />
+                    <input type="text" name="firstName" placeholder="First Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required />
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
                 </div>
-                <input type="text" placeholder="Middle Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={middleName}/>
+                <input type="text" name="middleName" placeholder="Middle Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]"/>
             </div>
             <div class="w-full flex items-center justify-between space-x-4 mt-6">
                 <div class="relative w-full">
-                    <input type="text" placeholder="Last Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={lastName} required/>
+                    <input type="text" name="lastName" placeholder="Last Name" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
                 </div>
                 
-                <input type="text" placeholder="Suffix" class="w-[20%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={suffix}/>
+                <input type="text" name="suffix" placeholder="Suffix" class="w-[20%] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]"/>
             </div>
             <div class="relative w-full mt-6">
-                <input type="text" placeholder="Address" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={address} required/>
+                <input type="text" name="address" placeholder="Address" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
                 <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
             </div>
             
             <div class="w-full flex items-center justify-between space-x-4 mt-6">
                 <div class="relative w-full">
-                    <select class="w-full p-4 rounded-[10px] text-gray-400" bind={sex} required>
+                    <select name="sex" class="w-full p-4 rounded-[10px] text-gray-400" required>
                         <option disabled selected value="">Sex</option>
                         <option>Male</option>
                         <option>Female</option>
@@ -136,7 +120,7 @@
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
                 </div>
                 <div class="relative w-full">
-                    <select class="w-full p-4 rounded-[10px] text-gray-400" bind={civilStatus} required>
+                    <select name="civilStatus" class="w-full p-4 rounded-[10px] text-gray-400" required>
                         <option disabled selected value="">Civil Status</option>
                         <option>Single</option>
                         <option>Married</option>
@@ -146,33 +130,33 @@
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
                 </div>
                 <div class="relative w-full">
-                    <input type="text" placeholder="Religion" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={religion} required/>
+                    <input type="text" name="religion" placeholder="Religion" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
                 </div>
             </div>
             <div class="mt-6 relative w-full">
-                <input type="text" placeholder="Birth Place" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={birthPlace} required/>
+                <input type="text" name="birthPlace" placeholder="Birth Place" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]"  required/>
                 <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
             </div>
             <div class="w-full flex items-center justify-between space-x-4 mt-6">
                 <div class="relative w-[75%]">
-                    <input type="date" placeholder="Birth date" class="w-full text-gray-400 rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required bind:value={birthDate} on:input={handleDateChange} />
+                    <input type="date" name="birthDate" placeholder="Birth date" class="w-full text-gray-400 rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required bind:value={birthDate} on:input={handleDateChange} />
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
                 </div>
                 <input type="number" placeholder="Age" class="w-[25%] bg-[#F8E0ED] rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" value={age} readonly />
             </div>
             <div class="w-full flex items-center justify-between space-x-4 mt-6">
                 <div class="relative w-[50%]">
-                    <input type="text" placeholder="Height in cm" class="w-full text-gray-400 rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={height} required/>
+                    <input type="text" name="height" placeholder="Height in cm" class="w-full text-gray-400 rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
                 </div>
                 <div class="relative w-[50%]">
-                    <input type="text" placeholder="Weight in kg" class="w-full text-gray-400 rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={weight} required/>
+                    <input type="text" name="weight" placeholder="Weight in kg" class="w-full text-gray-400 rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
                 </div>
             </div>
             <div class="relative w-full mt-6">
-                <input type="text" placeholder="Contact Number" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={contactNumber} required/>
+                <input type="text" name="contactNumber" placeholder="Contact Number" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
                 <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
             </div>
 
@@ -187,20 +171,20 @@
                     </div>
                 </div>
             </div>
-            <input type="text" placeholder="SSS Number" class="mt-6 w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7] id-input" required on:input={handleInputChange}/>
-            <input type="text" placeholder="TIN Number" class="mt-6 w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7] id-input" required on:input={handleInputChange}/>
-            <input type="text" placeholder="PAG-IBIG Number" class="mt-6 w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7] id-input" required on:input={handleInputChange}/>
-            <input type="text" placeholder="PHILHEALTH Number" class="mt-6 w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7] id-input" required on:input={handleInputChange}/>
+            <input type="text" name="sssNumber" placeholder="SSS Number" class="mt-6 w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7] id-input" required on:input={handleInputChange}/>
+            <input type="text" name="tinNumber" placeholder="TIN Number" class="mt-6 w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7] id-input"  equired on:input={handleInputChange}/>
+            <input type="text" name="pagIbigNumber" placeholder="PAG-IBIG Number" class="mt-6 w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7] id-input" required on:input={handleInputChange}/>
+            <input type="text" name="philHealthNumber" placeholder="PHILHEALTH Number" class="mt-6 w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7] id-input" required on:input={handleInputChange}/>
 
             <div class="w-full flex items-center justify-start mt-12 font-semibold text-[#DA478D]">
                 EMERGENCY DETAILS
             </div>
             <div class="mt-6 relative w-full">
-                <input type="text" placeholder="Contact Person" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={emergencyPerson} required/>
+                <input type="text" name="emergencyName" placeholder="Contact Person" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
                 <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
             </div>
             <div class="mt-6 relative w-full">
-                <input type="text" placeholder="Contact Number" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" bind={emergencyContact} required/>
+                <input type="text" name="emergencyContact" placeholder="Contact Number" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
                 <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>
             </div>
 
@@ -236,7 +220,7 @@
             </div>
 
             <div class="w-full flex mt-16 items-center justify-end">
-                    <button type="submit" class="text-[#353535] font-semibold w-[175px] py-3 bg-[#F4B8DA] rounded-[10px] opacity-90 hover:opacity-100 disabled:opacity-30 transition-all flex items-center justify-center">Proceed<span class="ml-1 mb-1"><CaretDoubleRight size={15} weight="bold" color="#353535"/></span></button>
+                <button type="submit" class="text-[#353535] font-semibold w-[175px] py-3 bg-[#F4B8DA] rounded-[10px] opacity-90 hover:opacity-100 disabled:opacity-30 transition-all flex items-center justify-center">Proceed<span class="ml-1 mb-1"><CaretDoubleRight size={15} weight="bold" color="#353535"/></span></button>
             </div>
         </form>
     </div>

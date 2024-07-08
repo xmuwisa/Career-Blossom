@@ -23,11 +23,12 @@
     });
   </script>
   
-  {#if userInfo}
+  <Logout />
+  <!-- {#if userInfo}
     <h1>Welcome, {userInfo.username}</h1>
     <p>Email: {userInfo.email}</p>
     <p>User Id: {userInfo.user_id}</p>
-    <Logout />
+   
   {:else}
     <p>Loading...</p>
-  {/if}
+  {/if} -->
