@@ -6,7 +6,7 @@
     <div class="bg-[#FFFFFF] w-[95%] h-[95%] rounded-[35px] flex flex-col items-center justify-center">
         <div class="w-full flex flex-col items-center justify-center space-y-32 text-center">
             <div class="flex flex-col items-center justify-center">
-                <img src="../src/lib/assets/career-blossom-logo.png" class="w-44" alt="Career Blossom Inc. Logo" />
+                <img src="/assets/career-blossom-logo.png" class="w-44" alt="Career Blossom Inc. Logo" />
                 <span class="text-[#DA478D] font-serif font-extrabold italic text-5xl">Career Blossom Inc.</span>
             </div>
             <div class="flex flex-col items-center justify-center">

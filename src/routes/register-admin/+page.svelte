@@ -1,7 +1,8 @@
 <script>
-    import SignUp from '../../components/signUp.svelte';
+    import SignUpAdmin from '../../components/signUpAdmin.svelte';
     import { goto } from '$app/navigation';
 </script>
+
 
 <div class="w-full h-full rounded-[35px] p-20 flex flex-col items-center justify-center">
     <div class="w-full flex flex-col items-center justify-center space-y-6 text-center">
@@ -11,5 +12,5 @@
         </div>
         <span class="text-[#353535] font-sans text-xl">Join us and start your journey towards a blooming career.</span>
     </div>
-    <SignUp />
+    <SignUpAdmin />
 </div>

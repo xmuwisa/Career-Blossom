@@ -4,8 +4,8 @@
     import { onMount, afterUpdate } from 'svelte';
     import { writable, get } from 'svelte/store';
 
-    let candidateInfo = {};
-    let candidateInfoFetched = false;
+    let candidateUserInfo = {};
+    let candidateUserInfoFetched = false;
     let inputsWork = writable([{ id: 1, jobRole: '', company: '', yearStarted: '', yearEnded: '' }]);
 
     function addInputsWork(event) {
@@ -27,7 +27,7 @@
 
         const currentInputsWork = get(inputsWork); // Use $inputsWork to directly access the store value
         const payload = {
-            candidateId: candidateInfo.candidate_id,
+            candidateId: candidateUserInfo.candidate_id,
             workRecords: currentInputsWork.map(inputWork => ({
                 jobRole: inputWork.jobRole,
                 company: inputWork.company,
@@ -58,34 +58,27 @@
     }
 
     onMount(async () => {
-        if (candidateInfoFetched) return;
+        if (candidateUserInfoFetched) return;
 
         try {
-            const response = await fetch('/api/get_candidate_info');
+            const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
-                candidateInfo = await response.json();
-                candidateInfoFetched = true;
+                candidateUserInfo = await response.json();
+                candidateUserInfoFetched = true;
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }
         } catch (error) {
             console.error('Error fetching candidate info:', error);
         }
-
-        inputsWork.update(arr => {
-            if (arr.length === 0) {
-                return [{ id: 1, jobRole: '', company: '', yearStarted: '', yearEnded: '' }];
-            }
-            return arr;
-        });
     });
 </script>
 
 <div class="w-full h-auto rounded-[35px] p-20 flex flex-col items-center justify-center">
     <div class="w-full flex flex-col items-center justify-center space-y-6 text-center">
         <div class="flex flex-col items-center justify-center">
-            <img src="../../../src/lib/assets/career-blossom-logo.png" class="w-32" alt="Career Blossom Inc. Logo" />
+            <img src="/assets/career-blossom-logo.png" class="w-32" alt="Career Blossom Inc. Logo" />
             <span class="text-[#DA478D] font-serif font-extrabold italic text-4xl">Career Blossom Inc.</span>
         </div>
         <span class="text-[#353535] font-sans text-xl">Let's add the finishing touches to complete your profile.</span>
@@ -132,11 +125,7 @@
             </div>
 
             <div class="w-full flex mt-16 items-center justify-end">
-                <div class="flex items-center justify-center space-x-8">
-                    <button class="font-semibold opacity-50 hover:opacity-100 transition-all" on:click={() => goto('/job')}>Skip</button>
-                    <button type="submit" class="text-[#353535] font-semibold w-[175px] py-3 bg-[#F4B8DA] rounded-[10px] opacity-90 hover:opacity-100 disabled:opacity-30 transition-all flex items-center justify-center">Proceed<span class="ml-1 mb-1"><CaretDoubleRight size={15} weight="bold" color="#353535"/></span></button>
-                </div>
-                
+                    <button type="submit" class="text-[#353535] font-semibold w-[175px] py-3 bg-[#F4B8DA] rounded-[10px] opacity-90 hover:opacity-100 disabled:opacity-30 transition-all flex items-center justify-center">Finish<span class="ml-1 mb-1"><CaretDoubleRight size={15} weight="bold" color="#353535"/></span></button>
             </div>
         </form>
     </div>

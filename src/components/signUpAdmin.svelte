@@ -24,7 +24,8 @@
         body: new URLSearchParams({
           username,
           email,
-          password
+          password,
+          role: 'admin'
         })
       });
 

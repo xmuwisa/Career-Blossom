@@ -4,8 +4,8 @@
     import { onMount, afterUpdate } from 'svelte';
     import { writable, get } from 'svelte/store';
 
-    let candidateInfo = {};
-    let candidateInfoFetched = false;
+    let candidateUserInfo = {};
+    let candidateUserInfoFetched = false;
     let inputsEduc = writable([{ id: 1, schoolName: '', degreeType: '', yearStarted: '', yearEnded: '' }]);
 
     function addInputsEduc(event) {
@@ -25,7 +25,7 @@
 
         const currentInputsEduc = get(inputsEduc);
         const payload = {
-            candidateId: candidateInfo.candidate_id,
+            candidateId: candidateUserInfo.candidate_id,
             educationRecords: currentInputsEduc.map(inputEduc => ({
                 schoolName: inputEduc.schoolName,
                 degreeType: inputEduc.degreeType,
@@ -59,14 +59,14 @@
     }
 
     onMount(async () => {
-        if (candidateInfoFetched) return;
+        if (candidateUserInfoFetched) return;
 
         try {
-            const response = await fetch('/api/get_candidate_info');
+            const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
-                candidateInfo = await response.json();
-                candidateInfoFetched = true;
+                candidateUserInfo = await response.json();
+                candidateUserInfoFetched = true;
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }
@@ -86,7 +86,7 @@
 <div class="w-full h-auto rounded-[35px] p-20 flex flex-col items-center justify-center">
     <div class="w-full flex flex-col items-center justify-center space-y-6 text-center">
         <div class="flex flex-col items-center justify-center">
-            <img src="../../src/lib/assets/career-blossom-logo.png" class="w-32" alt="Career Blossom Inc. Logo" />
+            <img src="/assets/career-blossom-logo.png" class="w-32" alt="Career Blossom Inc. Logo" />
             <span class="text-[#DA478D] font-serif font-extrabold italic text-4xl">Career Blossom Inc.</span>
         </div>
         <span class="text-[#353535] font-sans text-xl">Let's add the finishing touches to complete your profile.</span>

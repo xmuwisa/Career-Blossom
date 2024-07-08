@@ -7,38 +7,50 @@ export async function POST({ request }) {
   const username = data.get('username');
   const password = data.get('password');
 
-  const selectQuery = `SELECT user_id, username, password FROM user WHERE username = ?`;
+  const selectUserQuery = `SELECT user_id, username, password FROM user WHERE username = ?`;
+  const selectCandidateQuery = `SELECT candidate_id FROM candidate WHERE user_id = ?`;
 
   try {
-    const [rows] = await db.execute(selectQuery, [username]);
-    
-    if (rows.length === 0) {
+    const [userRows] = await db.execute(selectUserQuery, [username]);
+
+    if (userRows.length === 0) {
       return new Response('Invalid username or password', { status: 401 });
     }
 
-    const user = rows[0];
+    const user = userRows[0];
     const passwordHash = user.password;
 
     const passwordMatch = await compare(password, passwordHash);
-    
+
     if (!passwordMatch) {
-        return new Response('Invalid username or password', { status: 401 });
+      return new Response('Invalid username or password', { status: 401 });
     }
 
     const userId = user.user_id;
-    console.log(`User logged in successfully! User ID: ${userId}`);
 
-    return new Response(
-        JSON.stringify({ message: 'Logged in successfully', user_id: userId }),
-        {
-          status: 200,
-          headers: {
-            'Set-Cookie': `userId=${userId}; Path=/; HttpOnly`
-          }
-        }
-    );
-    } catch (error) {
-        console.error(`Error logging in: ${error}`);
-        return new Response('An error occurred while logging in', { status: 500 });
+    // Fetch the candidate ID using the user ID
+    const [candidateRows] = await db.execute(selectCandidateQuery, [userId]);
+
+    if (candidateRows.length === 0) {
+      return new Response('Candidate not found for the user', { status: 404 });
     }
+
+    const candidateId = candidateRows[0].candidate_id;
+
+    const responseBody = JSON.stringify({ message: 'User logged in successfully!', user_id: userId, candidate_id: candidateId });
+    return new Response(responseBody, {
+      status: 201,
+      headers: {
+        'Set-Cookie': [
+          `userId=${userId}; Path=/; HttpOnly; Max-Age=31536000`,
+          `candidateId=${candidateId}; Path=/; HttpOnly; Max-Age=31536000`
+        ],
+        'Content-Type': 'application/json'
+      }
+    });
+  } catch (error) {
+    console.error(`Error logging in: ${error}`);
+    return new Response('An error occurred while logging in', { status: 500 });
+  }
 }
+
