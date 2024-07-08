@@ -20,4 +20,4 @@
   }
 </script>
 
-<button class="semibold text-[#353535] font-semibold opacity-80 hover:opacity-100" on:click={handleLogout}>Logout</button>
+<button class="semibold text-[#353535] text-[14px] font-semibold bg-[#F4B8DA] rounded-[10px] opacity-90 hover:opacity-100 px-10 py-3 " on:click={handleLogout}>Logout</button>

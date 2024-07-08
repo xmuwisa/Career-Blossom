@@ -6,6 +6,7 @@
   
     let candidateUserInfo = {};
     let candidateUserInfoFetched = false;
+
     let photoUrl = '';
     let url = '';
     let activeTab = 'details';
@@ -39,12 +40,12 @@
     <NavBar />
     </div>
     <div class="w-full h-auto min-h-svh pt-8 pr-8 pb-8 overflow-x-auto">
-      <div class="bg-[#FFFFFF] w-full h-auto min-h-svh rounded-[25px]">
-            <div class="w-full flex items-center justify-start space-x-2 p-8">
+      <div class="bg-[#ffe1f1] w-full h-auto min-h-svh rounded-[25px]">
+            <div class="bg-[#ffffff] w-full flex items-center justify-start space-x-2 p-8 rounded-t-[25px]">
                 <img src="/assets/career-blossom-logo.png" class="w-10" alt="Career Blossom Inc. Logo" />
                 <span class="text-[#DA478D] font-serif font-extrabold italic text-2xl">Career Blossom Inc.</span>
             </div>
-            <div class="w-full flex flex-col items-center justify-center space-y-4">
+            <div class="bg-[#ffffff] w-full flex flex-col items-center justify-center space-y-4 pt-8 px-8 pb-16">
                 <div class="avatar cursor-pointer" on:click={() => goto('/profile')}>
                     <div class="w-72 rounded-full border-[30px] border-[#f0f0f0]">
                         <img src="{photoUrl}" />
@@ -59,9 +60,9 @@
                     {/if}
                 </div>
             </div>
-            <div class="w-full flex items-center justify-between mt-9 bg-[#fcfcfc]">
-                <button class="w-[50%] hover:bg-[#f2f2f2] py-5" class:border-b-4={activeTab === 'details'} class:border-[#DA478D]={activeTab === 'details'} on:click={() => toggleTab('details')}>DETAILS</button>
-                <button class="w-[50%] hover:bg-[#f2f2f2] py-5" class:border-b-4={activeTab === 'applications'} class:border-[#DA478D]={activeTab === 'applications'} on:click={() => toggleTab('applications')}>APPLICATIONS</button>
+            <div class="w-full flex items-center justify-between bg-[#fcfcfc]">
+                <button class="w-[50%] hover:bg-[#f2f2f2] py-5 border-b-4" class:border-[#DA478D]={activeTab === 'details'} on:click={() => toggleTab('details')}>DETAILS</button>
+                <button class="w-[50%] hover:bg-[#f2f2f2] py-5 border-b-4" class:border-[#DA478D]={activeTab === 'applications'} on:click={() => toggleTab('applications')}>APPLICATIONS</button>
             </div>
             {#if activeTab === 'details'}
                 <ProfileDetails />
