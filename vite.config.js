@@ -5,5 +5,8 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	optimizeDeps: {
 		exclude: ["phosphor-svelte"],
-	  },
+	},
+	alias: {
+		'/uploads': './uploads'
+	}
 });

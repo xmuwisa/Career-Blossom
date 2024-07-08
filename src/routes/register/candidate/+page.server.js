@@ -1,6 +1,6 @@
 
 import { writeFile, unlink, readdir } from 'node:fs/promises';
-import { extname, join, basename } from 'path';
+import { extname, join, basename, posix } from 'path';
 import { redirect } from '@sveltejs/kit';
 
 let userInfo = {};
@@ -58,13 +58,13 @@ export const actions = {
 
     const filenameWithoutExtension = `${userId}`;
     const newFilename = `${filenameWithoutExtension}${fileExtension}`;
-    const filePath = join(process.cwd(), `uploads/${newFilename}`);
+    const filePath = posix.join('static', 'uploads', newFilename);
 
     try {
-      const oldFilePath = join(process.cwd(), `uploads/${filenameWithoutExtension}*`);
-      const files = await readdir(join(process.cwd(), 'uploads'));
+      const oldFilePath = join(process.cwd(), 'static', 'uploads', `${filenameWithoutExtension}*`);
+      const files = await readdir(join(process.cwd(), 'static', 'uploads'));
       const oldFiles = files.filter(file => file.startsWith(filenameWithoutExtension));
-      await Promise.all(oldFiles.map(file => unlink(join(process.cwd(), `uploads/${file}`))));
+      await Promise.all(oldFiles.map(file => unlink(join(process.cwd(), 'static', 'uploads', file))));
     } catch (error) {
     }
 

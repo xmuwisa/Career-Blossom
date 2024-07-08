@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import Logout from '../../components/logout.svelte';
+    import NavBar from '../../components/navigationBar.svelte';
   
     let userInfo = {};
     let userInfoFetched = false;
@@ -23,7 +23,7 @@
     });
   </script>
   
-  <Logout />
+  <NavBar />
   <!-- {#if userInfo}
     <h1>Welcome, {userInfo.username}</h1>
     <p>Email: {userInfo.email}</p>

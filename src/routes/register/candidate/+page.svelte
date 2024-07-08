@@ -125,6 +125,7 @@
                         <option>Single</option>
                         <option>Married</option>
                         <option>Widowed</option>
+                        <option>Separated</option>
                         <option>Divorced</option>
                     </select>
                     <span class="absolute -top-1 -right-1"><Asterisk size={12} weight="bold" color="#DA478D" /></span>

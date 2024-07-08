@@ -33,6 +33,7 @@ export async function POST({ request }) {
     civilStatus === 'Single' ? 'S' :
     civilStatus === 'Married' ? 'M' :
     civilStatus === 'Widowed' ? 'W' :
+    civilStatus === 'Separated' ? 'SP' :
     civilStatus === 'Divorced' ? 'D' :
     null;
 

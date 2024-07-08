@@ -19,4 +19,4 @@
     }
   </script>
   
-  <button class="btn" on:click={handleLogout}>Logout</button>
+  <button class="semibold" on:click={handleLogout}>Logout</button>
