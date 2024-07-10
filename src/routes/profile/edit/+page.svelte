@@ -1,8 +1,8 @@
 <script>
-    import NavBar from '../../components/navigationBar.svelte';
-    import EditProfile from '../../components/editProfile.svelte';
-    import EditWork from '../../components/editWork.svelte';
-    import EditEducation from '../../components/editEducation.svelte';
+    import NavBar from '../../../components/navigationBar.svelte';
+    import EditProfile from '../../../components/editProfile.svelte';
+    import EditWork from '../../../components/editWork.svelte';
+    import EditEducation from '../../../components/editEducation.svelte';
   </script>
   
   <div class="flex items-start justify-center w-svw h-auto relative">

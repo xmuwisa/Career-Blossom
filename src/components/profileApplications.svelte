@@ -80,7 +80,7 @@
         </span>
         <div class="my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {#each filteredApplicationList.sort((a, b) => new Date(b.date) - new Date(a.date)) as application}
-            <div class="w-full h-[175px] bg-[#fffbfd] shadow-xl rounded-[15px] flex flex-col p-4">
+            <div class="w-full h-[200px] bg-[#fffbfd] shadow-xl rounded-[15px] flex flex-col p-4">
                 <div class="h-full flex flex-col items-center justify-between">
                     <div class="w-full flex flex-col items-start justify-start space-y-3">
                         <span class="opacity-70 w-full flex flex-col items-end justify-end">
