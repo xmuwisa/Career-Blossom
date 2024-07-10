@@ -175,7 +175,11 @@
     });
 </script>
 
-  
+
+<div class="w-full flex items-center justify-start mt-8 font-semibold text-[#DA478D] p-4">
+    EDUCATION HISTORY
+</div>
+
 <div class="p-4">
     <table class="table">
         <thead class="">

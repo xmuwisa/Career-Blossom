@@ -13,10 +13,10 @@
       <div class="bg-[#FFFFFF] w-full h-auto min-h-svh rounded-[25px] p-4">
             <span class="p-4 text-lg font-bold">Edit Profile</span>
             <div class="w-full flex items-start justify-between space-x-5">
-                <span class="w-[50%] shadow rounded-[10px]"><EditProfile /></span>
+                <span class="w-[50%] shadow-xl rounded-[10px]"><EditProfile /></span>
                 <span class="w-[50%] flex flex-col space-y-5">
-                  <span class="shadow rounded-[10px] "><EditWork /></span>
-                  <span class="shadow rounded-[10px] "><EditEducation /></span>
+                  <span class="shadow-xl rounded-[10px] "><EditWork /></span>
+                  <span class="shadow-xl rounded-[10px] "><EditEducation /></span>
                 </span>
             </div>
       </div>
