@@ -41,7 +41,7 @@
         formData.append('educationRecords', JSON.stringify(payload.educationRecords));
 
         try {
-            const response = await fetch('/api/education_insert', {
+            const response = await fetch('/api/insert_education', {
                 method: 'POST',
                 body: formData,
             });

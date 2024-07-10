@@ -34,17 +34,16 @@ export async function GET({ request, url }) {
   }
 
   try {
-    // Get the applications submitted by the candidate
-    const query = `SELECT * FROM application WHERE candidate_id = ?`;
+    const query = `
+      SELECT *
+      FROM application AS a, candidate AS c, job AS j
+      WHERE a.candidate_id = c.candidate_id AND a.job_id = j.job_id AND a.candidate_id = ?
+    `;
     const [result] = await db.execute(query, [candidateId]);
 
-    if (result.length === 0) {
-      return new Response('Candidate not found', { status: 404 });
-    }
-
-    const candidateInfo = result[0];
+    // Return application list with joined candidate and job info
     return new Response(
-      JSON.stringify(candidateInfo),
+      JSON.stringify(result),
       {
         status: 200,
         headers: {
@@ -53,7 +52,7 @@ export async function GET({ request, url }) {
       }
     );
   } catch (error) {
-    console.error(`Error getting candidate info: ${error}`);
-    return new Response('Error getting candidate info', { status: 500 });
+    console.error(`Error getting application list: ${error}`);
+    return new Response('Error getting application list', { status: 500 });
   }
 }

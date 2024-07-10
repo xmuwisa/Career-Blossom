@@ -9,7 +9,7 @@
 
       if (response.ok) {
         console.log('Logged out successfully');
-        goto('/'); // Redirect to home or login page
+        goto('/login'); 
       } else {
         // Handle errors here
         console.error('Failed to logout:', response.statusText);

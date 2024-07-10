@@ -74,7 +74,7 @@
                 <button class="flex items-center justify-start w-full hover:bg-[#f3d9e7] p-2 rounded-[10px]" on:click={() => goto('/profile')}>PROFILE</button>
                 <button class="flex items-center justify-start w-full hover:bg-[#f3d9e7] p-2 rounded-[10px]" on:click={() => goto('/job')}>JOB</button>
                 {#if candidateUserInfo.role === 'admin'}
-                    <button class="flex items-center justify-start w-full hover:bg-[#f3d9e7] p-2 rounded-[10px]" on:click={() => goto('/dashboard')}>DASHBOARD</button>
+                    <button class="flex items-center justify-start w-full hover:bg-[#f3d9e7] p-2 rounded-[10px]" on:click={() => goto('/dashb')}>DASHBOARD</button>
                 {/if}
             </div>
         {/if}

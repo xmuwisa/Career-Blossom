@@ -1,9 +1,11 @@
 <script>
     import { onMount } from 'svelte';
+    import { candidateIdStore } from '../../stores';
+    import { get } from 'svelte/store';
     import NavBar from '../../components/navigationBar.svelte';
-    import ProfileDetails from '../../components/profileDetails.svelte';
-    import ProfileApplications from '../../components/profileApplications.svelte';
-  
+    import ApplicantDetails from '../../components/applicantDetails.svelte';
+    import ApplicantApplications from '../../components/applicantApplications.svelte';
+
     let applicationList = [];
 
     let candidateUserInfo = {};
@@ -12,6 +14,7 @@
     let photoUrl = '';
     let url = '';
     let activeTab = 'details';
+    let candidateId = get(candidateIdStore);
 
     function toggleTab(tab) {
         activeTab = tab;
@@ -21,13 +24,13 @@
         if (candidateUserInfoFetched) return;
 
         try {
-            const response = await fetch('/api/get_candidate_user_info');
+            const response = await fetch(`/api/get_candidate_user_info?candidateId=${candidateId}`);
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
                 candidateUserInfoFetched = true;
                 url = candidateUserInfo.photo_url;
-                photoUrl = url.replace(/^static\//, '/');;
+                photoUrl = url.replace(/^static\//, '/');
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }
@@ -37,6 +40,7 @@
 
         try {
             const response = await fetch('/api/get_application_list');
+
             if (response.ok) {
                 applicationList = await response.json();
             } else {
@@ -87,9 +91,9 @@
                 <button class="w-[50%] hover:bg-[#f2f2f2] py-5 border-b-4" class:border-[#DA478D]={activeTab === 'applications'} on:click={() => toggleTab('applications')}>APPLICATIONS</button>
             </div>
             {#if activeTab === 'details'}
-                <ProfileDetails />
+                <ApplicantDetails {candidateId} />
             {:else if activeTab === 'applications'}
-                <ProfileApplications />
+                <ApplicantApplications {candidateId} />
             {/if}
         </div>
     </div>

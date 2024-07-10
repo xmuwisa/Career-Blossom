@@ -75,18 +75,9 @@
     });
 </script>
 
-<div class="w-full h-auto rounded-[35px] p-20 flex flex-col items-center justify-center">
-    <div class="w-full flex flex-col items-center justify-center space-y-6 text-center">
-        <div class="flex flex-col items-center justify-center">
-            <img src="/assets/career-blossom-logo.png" class="w-32" alt="Career Blossom Inc. Logo" />
-            <span class="text-[#DA478D] font-serif font-extrabold italic text-4xl">Career Blossom Inc.</span>
-        </div>
-        <span class="text-[#353535] font-sans text-xl">Let's add the finishing touches to complete your profile.</span>
-    </div>
 
-    <div class="w-[35%] mt-16 flex items-center justify-center">
-        <form method="post" class="w-[525px] flex flex-col items-center justify-center" on:submit={handleSubmit}>
-            <div class="flex items-center justify-between mt-12 w-[525px]">
+        <form method="post" class="w-full flex flex-col items-center justify-center p-4" on:submit={handleSubmit}>
+            <div class="flex items-center justify-between mt-12 w-full">
                 <div class="w-full space-x-1 flex items-center justify-start font-semibold text-[#DA478D]">
                     <span>WORK HISTORY DETAILS</span>
                     <div class="dropdown dropdown-right dropdown-end space-x-1.5">
@@ -101,9 +92,9 @@
                 <button type="button" on:click={addInputsWork} class="bg-[#db78a8] text-white px-3 py-2 rounded-[5px] hover:bg-[#b95d8a]"><Plus size={14} weight="bold" /></button>
             </div>
             
-            <div id="inputContainerWork" class="w-[575px] flex flex-col items-center justify-center">
+            <div id="inputContainerWork" class="w-full flex flex-col items-center justify-center">
                 {#each $inputsWork as inputWork (inputWork.id)}
-                    <div class="w-[525px] p-2 mt-6 rounded-[12px] bg-[#F8E0ED] relative">
+                    <div class="w-full p-2 mt-6 rounded-[12px] bg-[#F8E0ED] relative">
                         <button type="button" on:click={() => removeInputsWork(inputWork.id)} class="bg-[#db78a8] text-white p-2 rounded-[50px] font-semibold opacity-40 hover:bg-[#b95d8a] hover:opacity-100 absolute -right-4 -top-4"><X size={10} weight="bold" /></button>
                         <div class="relative w-full">
                             <input type="text" bind:value={inputWork.jobRole} placeholder="Job Role" class="w-full rounded-[10px] p-4 border-2 border-transparent hover:bg-[#FFF7F7]" required/>
@@ -124,9 +115,7 @@
                 {/each}
             </div>
 
-            <div class="w-full flex mt-16 items-center justify-end">
-                    <button type="submit" class="text-[#353535] font-semibold w-[175px] py-3 bg-[#F4B8DA] rounded-[10px] opacity-90 hover:opacity-100 disabled:opacity-30 transition-all flex items-center justify-center">Finish<span class="ml-1 mb-1"><CaretDoubleRight size={15} weight="bold" color="#353535"/></span></button>
-            </div>
+            <button type="button" class="font-semibold text-[#353535] bg-[#ffa7d2] text-[14px] mt-16 rounded-[5px] opacity-80 py-3 w-[175px] hover:opacity-100 " on:click={handleUpdate}>
+                UPDATE
+            </button>
         </form>
-    </div>
-</div>

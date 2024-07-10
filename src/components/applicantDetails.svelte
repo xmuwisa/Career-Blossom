@@ -2,6 +2,8 @@
     import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
 
+    export let candidateId;
+
     let candidateUserInfo = {};
     let candidateUserInfoFetched = false;
 
@@ -15,7 +17,7 @@
         if (candidateUserInfoFetched) return;
 
         try {
-            const response = await fetch('/api/get_candidate_user_info');
+            const response = await fetch(`/api/get_candidate_user_info?candidateId=${candidateId}`);
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
@@ -32,7 +34,7 @@
         if (candidateEducInfoFetched) return;
 
         try {
-        const response = await fetch('/api/get_candidate_educ_info');
+        const response = await fetch(`/api/get_candidate_educ_info?candidateId=${candidateId}`);
 
         if (response.ok) {
             candidateEducInfo = await response.json();
@@ -47,7 +49,7 @@
         if (candidateWorkInfoFetched) return;
 
         try {
-        const response = await fetch('/api/get_candidate_work_info');
+        const response = await fetch(`/api/get_candidate_work_info?candidateId=${candidateId}`);
 
         if (response.ok) {
             candidateWorkInfo = await response.json();
@@ -94,9 +96,6 @@
 </script>
 
 <div class="border w-full h-full flex flex-col p-8">
-    <div class="w-full h-[25px] flex items-end justify-end mt-2">
-        <button class="bg-[#F4B8DA] text-[#353535] opacity-80 hover:opacity-100 py-2 px-8 rounded-[10px]" on:click={() => goto('/edit-profile')}>EDIT PROFILE</button>
-    </div>
     <span class="w-full text-[#DA478D] text-[18px] font-semibold">
         PERSONAL DETAILS 
     </span>
