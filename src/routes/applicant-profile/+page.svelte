@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { candidateIdStore } from '../../stores';
+    import { candidateIdStore } from '$lib/store';
     import { get } from 'svelte/store';
     import NavBar from '../../components/navigationBar.svelte';
     import ApplicantDetails from '../../components/applicantDetails.svelte';

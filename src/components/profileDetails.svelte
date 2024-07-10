@@ -95,7 +95,7 @@
 
 <div class="border w-full h-full flex flex-col p-8">
     <div class="w-full h-[25px] flex items-end justify-end mt-2">
-        <button class="bg-[#F4B8DA] text-[#353535] opacity-80 hover:opacity-100 py-2 px-8 rounded-[10px]" on:click={() => goto('/edit-profile')}>EDIT PROFILE</button>
+        <button type="button" class="bg-[#F4B8DA] text-[#353535] opacity-80 hover:opacity-100 py-2 px-8 rounded-[10px]" on:click={() => goto('/profile-edit')}>EDIT PROFILE</button>
     </div>
     <span class="w-full text-[#DA478D] text-[18px] font-semibold">
         PERSONAL DETAILS 

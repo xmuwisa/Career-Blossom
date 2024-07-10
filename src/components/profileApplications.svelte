@@ -87,7 +87,13 @@
                 <div class="h-full flex flex-col items-center justify-between">
                     <div class="w-full flex flex-col items-start justify-start space-y-3">
                         <span class="opacity-70 w-full flex flex-col items-end justify-end">
-                            {new Date(application.date).toLocaleDateString()}
+                            {new Date(application.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
                         </span>
                         <span class="flex flex-col items-start justify-start p-2 bg-[#f2f2f2] w-full rounded-[8px]">
                             <span class="font-semibold">{application.job_role}</span>

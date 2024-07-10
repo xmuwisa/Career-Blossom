@@ -22,7 +22,7 @@ export async function POST({ request }) {
                 record.jobRole,
                 record.company,
                 record.yearStarted,
-                record.yearEnded || null // Handle null yearEnded
+                record.yearEnded || null
             ];
             return db.execute(insertQuery, values);
         });

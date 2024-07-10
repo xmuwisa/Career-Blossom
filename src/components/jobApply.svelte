@@ -3,7 +3,7 @@
     import { Funnel, MagnifyingGlass } from "phosphor-svelte";
     import { Asterisk, Check, X } from "phosphor-svelte";
     import { goto } from '$app/navigation';
-    import { candidateIdStore } from '../stores';
+    import { candidateIdStore } from '$lib/store';
 
     function navigateToProfile(candidateId) {
         candidateIdStore.set(candidateId);
@@ -222,7 +222,7 @@
                                         </ul>
                                     </div>
                                 </span>
-                                {#each applicationsList.filter(app => app.job_id === job.job_id && app.application_status && (
+                                {#each applicationsList.filter(app => app.job_id === job.job_id && app.application_status === 'P' && (
                                     employmentTypeFilter === 'Full-Time' ? app.employment_type === 'FT' :
                                     employmentTypeFilter === 'Part-Time' ? app.employment_type === 'PT' :
                                     employmentTypeFilter === 'Contract' ? app.employment_type === 'C' : true
