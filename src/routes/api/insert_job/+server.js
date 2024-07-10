@@ -9,7 +9,6 @@ export async function POST({ request }) {
     let values;
 
     if (jobId) {
-      // Update existing job
       query = `
         UPDATE job
         SET job_role = ?, status = ?, description = ?
@@ -17,7 +16,6 @@ export async function POST({ request }) {
       `;
       values = [jobRole, status, description, jobId];
     } else {
-      // Insert new job
       query = `
         INSERT INTO job (job_role, status, description)
         VALUES (?, ?, ?)

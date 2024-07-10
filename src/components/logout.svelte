@@ -11,7 +11,6 @@
         console.log('Logged out successfully');
         goto('/login'); 
       } else {
-        // Handle errors here
         console.error('Failed to logout:', response.statusText);
       }
     } catch (error) {

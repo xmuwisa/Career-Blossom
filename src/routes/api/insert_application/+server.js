@@ -24,11 +24,9 @@
         candidateId = null;
         }
 
-        // Check if candidateId is provided in the URL
         const urlParams = new URLSearchParams(url.search);
         const candidateIdFromUrl = urlParams.get('candidateId');
 
-        // Use candidateId from URL if provided, otherwise use the one from the cookie
         candidateId = candidateIdFromUrl || candidateId;
 
         if (!candidateId) {

@@ -4,8 +4,6 @@
     import { Asterisk } from 'phosphor-svelte';
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
-    let candidateWorkInfoFetched = false;
     let selectedWorkHistoryItem = null;
 
     let workHistory = [];
@@ -57,7 +55,6 @@
 
     if (response.ok) {
         console.log(`Work history with id ${id} deleted successfully`);
-        // Update the workHistory array by filtering out the deleted item
         workHistory = workHistory.filter(item => item.work_history_id!== id);
     } else {
         console.error(`Error deleting work history with id ${id}: ${response.statusText}`);
@@ -90,7 +87,6 @@
     });
 
     if (response.ok) {
-        // Update the workHistory array by finding the item with the same id and updating its values
         workHistory = workHistory.map(item => {
         if (item.work_history_id === selectedWorkHistoryItem.work_history_id) {
             return {
@@ -124,14 +120,11 @@
     }
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
         const response = await fetch('/api/get_candidate_user_info');
 
         if (response.ok) {
             candidateUserInfo = await response.json();
-            candidateUserInfoFetched = true;
         } else {
             console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
         }
@@ -143,8 +136,7 @@
         const response = await fetch('/api/get_candidate_work_info');
 
         if (response.ok) {
-            workHistory = await response.json(); // Update workHistory array
-            candidateWorkInfoFetched = true;
+            workHistory = await response.json();
         } else {
             console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
         }

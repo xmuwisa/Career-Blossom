@@ -6,21 +6,17 @@
 
     
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
     let photoUrl = '';  
     let url = '';
     let navButton;
     let toggled = false;
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
                 url = candidateUserInfo.photo_url;
                 photoUrl = url.replace(/^static\//, '/');;
                 

@@ -5,7 +5,6 @@
     import { writable, get } from 'svelte/store';
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
     let inputsWork = writable([{ id: 1, jobRole: '', company: '', yearStarted: '', yearEnded: '' }]);
 
     function addInputsWork(event) {
@@ -25,7 +24,7 @@
     async function handleSubmit(event) {
         event.preventDefault();
 
-        const currentInputsWork = get(inputsWork); // Use $inputsWork to directly access the store value
+        const currentInputsWork = get(inputsWork);
         const payload = {
             candidateId: candidateUserInfo.candidate_id,
             workRecords: currentInputsWork.map(inputWork => ({
@@ -58,14 +57,11 @@
     }
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }

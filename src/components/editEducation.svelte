@@ -4,9 +4,6 @@
     import { Asterisk } from 'phosphor-svelte';
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
-
-    let candidateEducationInfoFetched = false;
     let selectedEducationHistoryItem = null;
 
     let educationHistory = [];
@@ -58,7 +55,6 @@
 
             if (response.ok) {
                 console.log(`Education history with id ${id} deleted successfully`);
-                // Update the educationHistory array by filtering out the deleted item
                 educationHistory = educationHistory.filter(item => item.education_history_id !== id);
             } else {
                 console.error(`Error deleting education history with id ${id}: ${response.statusText}`);
@@ -145,14 +141,11 @@
     }
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }
@@ -164,8 +157,7 @@
             const response = await fetch('/api/get_candidate_educ_info');
 
             if (response.ok) {
-                educationHistory = await response.json(); // Update educationHistory array
-                candidateEducationInfoFetched = true;
+                educationHistory = await response.json(); 
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }
@@ -204,9 +196,15 @@
                         </button>
                     </td>
                     <td>
-                        <button class="font-semibold text-[#353535] bg-[#dd9d9d] text-[12px] rounded-[5px] opacity-80 py-2 px-4 hover:opacity-100" on:click={() => deleteEducationHistory(item.education_history_id)}>
-                            Delete
-                        </button>
+                        {#if educationHistory.length > 1}
+                            <button class="font-semibold text-[#353535] bg-[#dd9d9d] text-[12px] rounded-[5px] opacity-80 py-2 px-4 hover:opacity-100" on:click={() => deleteEducationHistory(item.education_history_id)}>
+                                Delete
+                            </button>
+                        {:else}
+                            <button class="font-semibold disabled:opacity-50 text-[#353535] bg-[#dd9d9d] text-[12px] rounded-[5px] opacity-80 py-2 px-4 hover:opacity-100" on:click={() => deleteEducationHistory(item.education_history_id)} disabled>
+                                Delete
+                            </button>
+                        {/if}
                     </td>
                 </tr>
                 {/each}

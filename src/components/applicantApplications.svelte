@@ -9,17 +9,13 @@
     let filteredApplicationList = [];
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch(`/api/get_candidate_user_info?candidateId=${candidateId}`);
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }

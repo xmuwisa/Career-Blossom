@@ -5,7 +5,6 @@
     import { writable, get } from 'svelte/store';
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
     let inputsEduc = writable([{ id: 1, schoolName: '', degreeType: '', yearStarted: '', yearEnded: '' }]);
 
     function addInputsEduc(event) {
@@ -59,14 +58,11 @@
     }
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }

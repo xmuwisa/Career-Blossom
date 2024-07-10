@@ -33,7 +33,6 @@
         const result = await response.json();
         console.log(result);
 
-        // Make another request to login the user
         const loginResponse = await fetch('/api/user_just_login', {
           method: 'POST',
           headers: {

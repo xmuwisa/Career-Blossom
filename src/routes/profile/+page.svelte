@@ -9,7 +9,6 @@
     let applicationList = [];
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
 
     let photoUrl = '';
     let url = '';
@@ -20,14 +19,11 @@
     }
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
                 url = candidateUserInfo.photo_url;
                 photoUrl = url.replace(/^static\//, '/');;
             } else {
@@ -67,7 +63,7 @@
                             <img src="{photoUrl}" />
                         </div>
                     </div>
-                    <span class="absolute bottom-5 right-5 bg-[#f0f0f0] p-4 rounded-full opacity-50 cursor-pointer hover:opacity-90" on:click={() => goto('/photo-upload')}><Camera size={40} weight="fill" color="#353535"/></span>
+                    <span class="absolute bottom-5 right-5 bg-[#f0f0f0] p-4 rounded-full opacity-50 cursor-pointer hover:opacity-90" on:click={() => goto('/profile/photo-upload')}><Camera size={40} weight="fill" color="#353535"/></span>
                 </div>
                 <div class="flex flex-col space-y-1 items-center justify-center">
                     <span class="text-[22px] font-semibold text-[#DA478D]">{candidateUserInfo.username}</span>

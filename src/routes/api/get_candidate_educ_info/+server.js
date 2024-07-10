@@ -39,7 +39,6 @@ export async function GET({ request, url }) {
       return new Response('Candidate not found', { status: 404 });
     }
 
-    // Return education history array
     return new Response(
       JSON.stringify(result),
       {

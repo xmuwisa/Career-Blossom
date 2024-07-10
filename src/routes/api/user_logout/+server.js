@@ -1,9 +1,5 @@
 export async function POST({ request }) {
   try {
-    // Handle logout logic here
-    // For example, clearing cookies or session data
-    
-    // Prepare response
     const responseBody = JSON.stringify({ message: 'User logged out successfully!' });
     return new Response(responseBody, {
       status: 200,

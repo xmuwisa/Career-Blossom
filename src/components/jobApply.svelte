@@ -16,11 +16,11 @@
     let selectedJobId = '';
     let filteredJobList = [];
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
     let employmentType = ''; 
     let searchQuery = '';
     let selectedAvailability = '';
     let employmentTypeFilter = 'Full-Time';
+    let totalPendings = {};
 
     let modals = {};
 
@@ -29,8 +29,8 @@
             const response = await fetch('/api/get_job_list');
             if (response.ok) {
                 jobList = await response.json();
-                filteredJobList = jobList; // Initialize filteredJobList with the full job list
-                selectedJobId = jobList[0].job_id; // set the selected job ID to the first job in the list
+                filteredJobList = jobList; 
+                selectedJobId = jobList[0].job_id; 
             } else {
                 console.error('Failed to fetch job list');
             }
@@ -38,13 +38,10 @@
             console.error('Error fetching job list:', error);
         }
 
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch('/api/get_candidate_user_info');
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
                 url = candidateUserInfo.photo_url;
                 photoUrl = url.replace(/^static\//, '/');
             } else {
@@ -74,6 +71,21 @@
             }
         } catch (error) {
             console.error('Error fetching applications list:', error);
+        }
+
+        try {
+            const response = await fetch('/api/get_total_pendings');
+            if (response.ok) {
+                const pendingsData = await response.json();
+                totalPendings = pendingsData.reduce((acc, { job_id, total_pendings }) => {
+                    acc[job_id] = total_pendings;
+                    return acc;
+                }, {});
+            } else {
+                console.error('Failed to fetch total pendings');
+            }
+        } catch (error) {
+            console.error('Error fetching total pendings:', error);
         }
 
     });
@@ -145,7 +157,11 @@
 </script>
 
 <div class="w-full h-auto">
-    <div class="w-full flex items-center justify-end mt-8">
+    <div class="w-full flex items-center justify-end mt-8 space-x-4 ">
+        {#if candidateUserInfo.role === 'admin'}
+            <button class="bg-[#ff8fd0] text-[#141414] font-semibold shadow opacity-80 hover:opacity-100 py-2 px-8 rounded-[10px]" on:click={() => goto('/job/edit')}>EDIT JOBS</button>
+        {/if}
+        
         <form on:submit|preventDefault={handleSearch}>
             <span class="flex items-center justify-between space-x-2 rounded-[25px] bg-[#f4f4f4] pr-4">
                 <div class="relative">
@@ -164,7 +180,14 @@
     </div>
     <div class="my-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {#each filteredJobList as job}
-            <div class="w-full h-auto bg-[#fffbfd] shadow-xl rounded-[15px] flex flex-col p-8">
+            <div class="w-full h-auto bg-[#fffbfd] shadow-xl rounded-[15px] flex flex-col p-8 relative border">
+                {#if candidateUserInfo.role === 'admin'}
+                    {#if totalPendings[job.job_id]}
+                        <span class="flex items-center text-[14px] justify-center w-9 h-9 bg-[#ddebc8] font-semibold rounded-full absolute -top-2 -right-2">
+                            {totalPendings[job.job_id]}
+                        </span>
+                    {/if}
+                {/if}
                 <span class="font-semibold">{job.job_role}</span>
                 <span class={`text-[14px] font-semibold ${job.status === 'A' ? 'text-[#d1c843]' : 'text-[#af2d4e]'}`}>{job.status === 'A'? 'Available' : 'Not Available'}</span>
                 <div class="w-full flex items-center justify-end">

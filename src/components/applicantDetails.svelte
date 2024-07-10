@@ -5,23 +5,15 @@
     export let candidateId;
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
-
     let candidateEducInfo = [];
-    let candidateEducInfoFetched = false;
-
     let candidateWorkInfo = [];
-    let candidateWorkInfoFetched = false;
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch(`/api/get_candidate_user_info?candidateId=${candidateId}`);
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
                 url = candidateUserInfo.photo_url;
                 photoUrl = url.replace(/^static\//, '/');;
             } else {
@@ -31,14 +23,11 @@
             console.error('Error fetching candidate info:', error);
         }
 
-        if (candidateEducInfoFetched) return;
-
         try {
         const response = await fetch(`/api/get_candidate_educ_info?candidateId=${candidateId}`);
 
         if (response.ok) {
             candidateEducInfo = await response.json();
-            candidateEducInfoFetched = true;
         } else {
             console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
         }
@@ -46,14 +35,11 @@
             console.error('Error fetching candidate info:', error);
         }
 
-        if (candidateWorkInfoFetched) return;
-
         try {
         const response = await fetch(`/api/get_candidate_work_info?candidateId=${candidateId}`);
 
         if (response.ok) {
             candidateWorkInfo = await response.json();
-            candidateWorkInfoFetched = true;
         } else {
             console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
         }

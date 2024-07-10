@@ -3,30 +3,17 @@ import { extname, join, basename, posix } from 'path';
 import { redirect } from '@sveltejs/kit';
 
 let userInfo = {};
-let userInfoFetched = false;
 
 /** @type {import('./$types').Actions} */
 export const actions = {
     default: async ({ request, params, fetch }) => {
-        if (userInfoFetched) return;
 
-        try {
-            const response = await fetch('/api/get_user_info', { headers: request.headers });
-            console.log('Response:', response);
+        const response = await fetch('/api/get_user_info', { headers: request.headers });
+        console.log('Response:', response);
 
-            if (response.ok) {
-                userInfo = await response.json();
-                console.log('User info:', userInfo);
-                userInfoFetched = true;
-            } else {
-                console.error('Failed to fetch user info');
-                userInfoFetched = false;
-            }
-        } catch (error) {
-            console.error('Error fetching user info:', error);
-            userInfoFetched = false;
-        }
-
+        userInfo = await response.json();
+        console.log('User info:', userInfo);
+        
         if (!userInfo ||!userInfo.user_id) {
             return { success: false, error: 'Failed to fetch user info' };
         }
@@ -49,10 +36,10 @@ export const actions = {
             const filePath = posix.join('static', 'uploads', newFilename);
       
             try {
-              const oldFilePath = join(process.cwd(), 'tatic', 'uploads', `${filenameWithoutExtension}*`);
-              const files = await readdir(join(process.cwd(), 'tatic', 'uploads'));
+              const oldFilePath = join(process.cwd(), 'static', 'uploads', `${filenameWithoutExtension}*`);
+              const files = await readdir(join(process.cwd(), 'static', 'uploads'));
               const oldFiles = files.filter(file => file.startsWith(filenameWithoutExtension));
-              await Promise.all(oldFiles.map(file => unlink(join(process.cwd(), 'tatic', 'uploads', file))));
+              await Promise.all(oldFiles.map(file => unlink(join(process.cwd(), 'static', 'uploads', file))));
             } catch (error) {
               console.error('Error deleting old files:', error);
             }

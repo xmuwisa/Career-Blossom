@@ -20,7 +20,7 @@
         username,
         password
       }),
-      credentials: 'include' // Send cookies with the request
+      credentials: 'include'
     });
 
     if (response.ok) {

@@ -6,17 +6,14 @@
     let filteredApplicationList = [];
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
 
         try {
             const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
             } else {
                 console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
             }
@@ -42,7 +39,7 @@
             try {
                 const response = await fetch(`/api/delete_application?appId=${appId}`, {
                     method: 'DELETE',
-                    credentials: 'include' // include cookies in the request
+                    credentials: 'include' 
                 });
 
                 if (response.ok) {

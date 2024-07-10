@@ -28,7 +28,6 @@ export async function POST({ request }) {
 
     const userId = user.user_id;
 
-    // Fetch the candidate ID using the user ID
     const [candidateRows] = await db.execute(selectCandidateQuery, [userId]);
 
     if (candidateRows.length === 0) {

@@ -3,23 +3,16 @@
     import { goto } from '$app/navigation';
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
-
     let candidateEducInfo = [];
-    let candidateEducInfoFetched = false;
-
     let candidateWorkInfo = [];
-    let candidateWorkInfoFetched = false;
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
 
         try {
             const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
                 url = candidateUserInfo.photo_url;
                 photoUrl = url.replace(/^static\//, '/');;
             } else {
@@ -29,14 +22,11 @@
             console.error('Error fetching candidate info:', error);
         }
 
-        if (candidateEducInfoFetched) return;
-
         try {
         const response = await fetch('/api/get_candidate_educ_info');
 
         if (response.ok) {
             candidateEducInfo = await response.json();
-            candidateEducInfoFetched = true;
         } else {
             console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
         }
@@ -44,14 +34,11 @@
             console.error('Error fetching candidate info:', error);
         }
 
-        if (candidateWorkInfoFetched) return;
-
         try {
         const response = await fetch('/api/get_candidate_work_info');
 
         if (response.ok) {
             candidateWorkInfo = await response.json();
-            candidateWorkInfoFetched = true;
         } else {
             console.error(`Failed to fetch candidate info: ${response.status} - ${response.statusText}`);
         }
@@ -95,7 +82,7 @@
 
 <div class="border w-full h-full flex flex-col p-8">
     <div class="w-full h-[25px] flex items-end justify-end mt-2">
-        <button type="button" class="bg-[#F4B8DA] text-[#353535] opacity-80 hover:opacity-100 py-2 px-8 rounded-[10px]" on:click={() => goto('/profile-edit')}>EDIT PROFILE</button>
+        <button type="button" class="bg-[#F4B8DA] text-[#353535] opacity-80 hover:opacity-100 py-2 px-8 rounded-[10px]" on:click={() => goto('/profle/edit')}>EDIT PROFILE</button>
     </div>
     <span class="w-full text-[#DA478D] text-[18px] font-semibold">
         PERSONAL DETAILS 

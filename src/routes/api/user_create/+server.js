@@ -7,7 +7,7 @@ export async function POST({ request }) {
   const username = data.get('username');
   const email = data.get('email');
   const password = data.get('password');
-  const role = data.get('role') || 'user'; // default to 'user' if not provided
+  const role = data.get('role') || 'user'; 
 
   if (role!== 'user' && role!== 'admin') {
     return new Response('Invalid role', { status: 400 });

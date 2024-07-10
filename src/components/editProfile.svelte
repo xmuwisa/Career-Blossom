@@ -3,7 +3,6 @@
     import { onMount } from 'svelte';
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
     let birthDate = '';
     let age = '';
     let sssNumber = '';
@@ -29,15 +28,13 @@
     }
 
     function formatDate(dateString) {
-        // Create a Date object from the ISO 8601 formatted string
+
         let date = new Date(dateString);
-        
-        // Extract the year, month, and day
+
         let year = date.getFullYear();
         let month = String(date.getMonth() + 1).padStart(2, '0');
         let day = String(date.getDate()).padStart(2, '0');
-        
-        // Return the formatted date string in "yyyy-MM-dd" format
+
         return `${year}-${month}-${day}`;
     }
 
@@ -134,25 +131,19 @@
                 location.reload();
             } else {
                 console.error('Failed to update candidate:', response.status, response.statusText);
-                // Optionally, handle error UI update
             }
         } catch (error) {
             console.error('Error updating candidate:', error);
-            // Handle network errors or other exceptions
         }
     }
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch('/api/get_candidate_user_info');
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
 
-                // Update input fields with candidateUserInfo
                 document.getElementsByName('firstName')[0].value = candidateUserInfo.first_name;
                 document.getElementsByName('middleName')[0].value = candidateUserInfo.middle_name;
                 document.getElementsByName('lastName')[0].value = candidateUserInfo.last_name;

@@ -9,7 +9,6 @@
     let applicationList = [];
 
     let candidateUserInfo = {};
-    let candidateUserInfoFetched = false;
 
     let photoUrl = '';
     let url = '';
@@ -21,14 +20,11 @@
     }
 
     onMount(async () => {
-        if (candidateUserInfoFetched) return;
-
         try {
             const response = await fetch(`/api/get_candidate_user_info?candidateId=${candidateId}`);
 
             if (response.ok) {
                 candidateUserInfo = await response.json();
-                candidateUserInfoFetched = true;
                 url = candidateUserInfo.photo_url;
                 photoUrl = url.replace(/^static\//, '/');
             } else {

@@ -22,11 +22,9 @@ export async function GET({ request, url }) {
     candidateId = null;
   }
 
-  // Check if candidateId is provided in the URL
   const urlParams = new URLSearchParams(url.search);
   const candidateIdFromUrl = urlParams.get('candidateId');
 
-  // Use candidateId from URL if provided, otherwise use the one from the cookie
   candidateId = candidateIdFromUrl || candidateId;
 
   if (!candidateId) {
@@ -41,7 +39,6 @@ export async function GET({ request, url }) {
     `;
     const [result] = await db.execute(query, [candidateId]);
 
-    // Return application list with joined candidate and job info
     return new Response(
       JSON.stringify(result),
       {

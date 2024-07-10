@@ -8,9 +8,8 @@ export async function GET({ url }) {
       const query = `SELECT * FROM job WHERE job_id = ?`;
       const [result] = await db.execute(query, [jobId]);
 
-      // Return specific job info
       return new Response(
-        JSON.stringify(result[0]), // assuming only one result
+        JSON.stringify(result[0]), 
         {
           status: 200,
           headers: {
@@ -27,7 +26,6 @@ export async function GET({ url }) {
       const query = `SELECT * FROM job`;
       const [result] = await db.execute(query);
 
-      // Return job list array
       return new Response(
         JSON.stringify(result),
         {
