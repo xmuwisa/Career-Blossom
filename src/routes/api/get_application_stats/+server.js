@@ -17,6 +17,7 @@ export async function GET({ url }) {
        FROM application AS a, job AS j
        WHERE a.job_id = j.job_id
        GROUP BY j.job_role
+       ORDER BY count DESC
        LIMIT 5`,
 
       `SELECT ROUND(AVG(applications_per_candidate)) AS avg_applications
