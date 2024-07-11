@@ -7,8 +7,8 @@
     import ProfileApplications from '../../components/profileApplications.svelte';
   
     let applicationList = [];
-
     let candidateUserInfo = {};
+    let filteredApplicationList = [];
 
     let photoUrl = '';
     let url = '';
@@ -37,6 +37,7 @@
             const response = await fetch('/api/get_application_list');
             if (response.ok) {
                 applicationList = await response.json();
+                filteredApplicationList = applicationList.filter(app => app.candidate_id === candidateUserInfo.candidate_id);
             } else {
                 console.error('Failed to fetch applications list');
             }
@@ -71,8 +72,8 @@
                     {#if candidateUserInfo.role === 'admin'}
                         <span class="text-[#dd73a6] text-[16px] opacity-90 uppercase">Admin</span>
                     {:else if candidateUserInfo.role === 'user'}
-                        {#if applicationList.some(application => application.application_status === 'A')}
-                            {#each applicationList as application}
+                        {#if filteredApplicationList.some(application => application.application_status === 'A')}
+                            {#each filteredApplicationList as application}
                                 {#if application.application_status === 'A'}
                                     <span class="text-[#dd73a6] text-[16px] opacity-90 uppercase">{application.job_role}</span>
                                 {/if}

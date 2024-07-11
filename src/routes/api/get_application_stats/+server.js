@@ -19,13 +19,13 @@ export async function GET({ url }) {
        GROUP BY j.job_role
        LIMIT 5`,
 
-      `SELECT AVG(applications_per_candidate) AS avg_applications
-       FROM (
-         SELECT c.candidate_id, COUNT(*) AS applications_per_candidate
-         FROM application AS a, candidate AS c
-         WHERE a.candidate_id = c.candidate_id
-         GROUP BY c.candidate_id
-       ) AS subquery`
+      `SELECT ROUND(AVG(applications_per_candidate)) AS avg_applications
+      FROM (
+        SELECT c.candidate_id, COUNT(*) AS applications_per_candidate
+        FROM application AS a, candidate AS c
+        WHERE a.candidate_id = c.candidate_id
+        GROUP BY c.candidate_id
+      ) AS subquery`
     ];
 
     const results = await Promise.all(queries.map((query) => db.execute(query)));
